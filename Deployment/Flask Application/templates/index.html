@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telecomm Churn Prediction</title>
+</head>
+<body>
+    <h2>Predict Customer Churn</h2>
+    <form action="/predict" method="POST">
+        Tenure
+        <input type="number" name="tenure" required><br><br>
+        Paperless Billing
+        <input type="number" name="paperless_billing" required><br><br>
+        Total Charges
+        <input type="number" name="total_charges" required><br><br>
+        Fiber Optic Internet Service
+        <input type="number" name="fiber_optic_internet_service" required><br><br>
+        No Internet Service
+        <input type="number" name="no_internet_service" required><br><br>
+        Two Year Contract
+        <input type="number" name="two_year_contract" required><br><br>
+        Electronic Check Payment Method
+        <input type="number" name="electronic_check_payment_method" required><br><br>
+        <button type="submit" value="Predict">Predict</button>
+        </form>
+</body>
+</html>
