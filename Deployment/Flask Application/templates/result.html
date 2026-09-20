@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result - Customer Churn Analytics</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --churn-color: #f43f5e;
+            --churn-bg: rgba(244, 63, 94, 0.12);
+            --churn-border: rgba(244, 63, 94, 0.35);
+            --retain-color: #10b981;
+            --retain-bg: rgba(16, 185, 129, 0.12);
+            --retain-border: rgba(16, 185, 129, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--bg-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            color: var(--text-main);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 520px;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+        }
+
+        .status-icon {
+            width: 76px;
+            height: 76px;
+            margin: 0 auto 1.5rem auto;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        /* Dynamic styling matching prediction string */
+        .status-churn {
+            background: var(--churn-bg);
+            border: 2px solid var(--churn-border);
+            color: var(--churn-color);
+            box-shadow: 0 0 25px rgba(244, 63, 94, 0.25);
+        }
+
+        .status-retain {
+            background: var(--retain-bg);
+            border: 2px solid var(--retain-border);
+            color: var(--retain-color);
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.25);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.35rem 0.85rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .badge-churn {
+            background: var(--churn-bg);
+            border: 1px solid var(--churn-border);
+            color: #fda4af;
+        }
+
+        .badge-retain {
+            background: var(--retain-bg);
+            border: 1px solid var(--retain-border);
+            color: #6ee7b7;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+
+        .result-box {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin: 1.5rem 0 2rem 0;
+        }
+
+        .result-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #f1f5f9;
+            line-height: 1.5;
+        }
+
+        .btn-again {
+            display: inline-block;
+            width: 100%;
+            padding: 0.85rem 1.5rem;
+            background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-again:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.6);
+            background: linear-gradient(135deg, #4338ca 0%, #4f46e5 100%);
+        }
+
+        .btn-again:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% if "churn" in prediction.lower() %}
+            <div class="status-icon status-churn">!</div>
+            <span class="badge badge-churn">High Risk Detected</span>
+            <h1>Assessment Complete</h1>
+            <div class="result-box">
+                <p class="result-text">{{ prediction }}</p>
+            </div>
+        {% else %}
+            <div class="status-icon status-retain">✓</div>
+            <span class="badge badge-retain">Low Risk Profile</span>
+            <h1>Assessment Complete</h1>
+            <div class="result-box">
+                <p class="result-text">{{ prediction }}</p>
+            </div>
+        {% endif %}
+
+        <a href="/" class="btn-again">← Evaluate Another Customer</a>
+    </div>
+</body>
+</html>
