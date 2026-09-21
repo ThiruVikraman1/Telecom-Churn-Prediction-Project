@@ -7,3 +7,4 @@ Matplotlib      : 3.10.1
 Seaborn         : 0.13.2
 Imbalanced-learn: 0.14.0
 Pickle (Format) : 4.0
+gunicorn        : 23.0.0
