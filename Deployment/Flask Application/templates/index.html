@@ -4,22 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Telecom Churn Prediction</title>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --card-border: rgba(255, 255, 255, 0.1);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --input-bg: rgba(15, 23, 42, 0.6);
-            --input-border: rgba(255, 255, 255, 0.15);
-            --focus-ring: rgba(99, 102, 241, 0.4);
+            --brand-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #06b6d4 100%);
+            --page-bg: #e2e8f0;
+            --card-bg: #ffffff;
+            --surface-bg: #f1f5f9;
+            --border-color: #cbd5e1;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
         }
 
         * {
@@ -31,7 +29,10 @@
 
         body {
             min-height: 100vh;
-            background: var(--bg-gradient);
+            background: var(--page-bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.15) 0px, transparent 50%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -39,51 +40,55 @@
             color: var(--text-main);
         }
 
-        .container {
+        .dashboard-card {
             width: 100%;
-            max-width: 680px;
+            max-width: 660px;
             background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--card-border);
             border-radius: 20px;
-            padding: 2.5rem;
-            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.18), 0 0 0 1px rgba(15, 23, 42, 0.05);
         }
 
-        .header {
+        /* Rich Colored Banner Header */
+        .card-header {
+            background: var(--brand-gradient);
+            padding: 2.5rem 2rem;
+            color: #ffffff;
             text-align: center;
-            margin-bottom: 2rem;
+            position: relative;
         }
 
         .badge {
             display: inline-block;
-            padding: 0.35rem 0.85rem;
-            background: rgba(99, 102, 241, 0.15);
-            border: 1px solid rgba(99, 102, 241, 0.3);
+            padding: 0.35rem 0.9rem;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
             border-radius: 50px;
             font-size: 0.75rem;
-            font-weight: 600;
-            color: #a5b4fc;
-            letter-spacing: 0.05em;
+            font-weight: 700;
+            letter-spacing: 0.06em;
             text-transform: uppercase;
             margin-bottom: 0.75rem;
         }
 
-        .header h1 {
+        .card-header h1 {
             font-size: 1.85rem;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: -0.02em;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(to right, #ffffff, #cbd5e1);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.4rem;
         }
 
-        .header p {
+        .card-header p {
             font-size: 0.95rem;
-            color: var(--text-muted);
+            color: rgba(255, 255, 255, 0.88);
+            font-weight: 400;
+        }
+
+        /* Form Area */
+        .card-body {
+            padding: 2.25rem 2rem;
+            background: var(--card-bg);
         }
 
         .form-grid {
@@ -103,56 +108,56 @@
         }
 
         label {
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: #cbd5e1;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #334155;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
         }
 
         input, select {
             width: 100%;
-            padding: 0.75rem 1rem;
-            background: var(--input-bg);
-            border: 1px solid var(--input-border);
+            padding: 0.8rem 1rem;
+            background: var(--surface-bg);
+            border: 1.5px solid var(--border-color);
             border-radius: 10px;
             font-size: 0.95rem;
-            color: #ffffff;
+            font-weight: 600;
+            color: var(--text-main);
             outline: none;
-            transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease;
         }
 
-        input::placeholder {
-            color: #64748b;
-        }
-
-        select option {
-            background: #0f172a;
-            color: #ffffff;
+        input:hover, select:hover {
+            border-color: #94a3b8;
+            background: #ffffff;
         }
 
         input:focus, select:focus {
-            border-color: #818cf8;
-            box-shadow: 0 0 0 4px var(--focus-ring);
+            background: #ffffff;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
         }
 
         .btn-submit {
             grid-column: 1 / -1;
             margin-top: 1rem;
-            padding: 0.9rem;
-            background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+            padding: 1rem;
+            background: var(--brand-gradient);
             color: #ffffff;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 1rem;
-            font-weight: 600;
+            font-weight: 700;
+            letter-spacing: 0.02em;
             cursor: pointer;
-            transition: all 0.2s ease-in-out;
-            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            box-shadow: 0 8px 20px -4px rgba(37, 99, 235, 0.4);
         }
 
         .btn-submit:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.6);
-            background: linear-gradient(135deg, #4338ca 0%, #4f46e5 100%);
+            box-shadow: 0 12px 24px -4px rgba(37, 99, 235, 0.5);
         }
 
         .btn-submit:active {
@@ -160,10 +165,12 @@
         }
 
         @media (max-width: 600px) {
-            .container {
+            .dashboard-card {
+                border-radius: 14px;
+            }
+            .card-header, .card-body {
                 padding: 1.5rem;
             }
-
             .form-grid {
                 grid-template-columns: 1fr;
             }
@@ -171,68 +178,68 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <span class="badge">Machine Learning Suite</span>
-            <h1>Customer Churn Analytics</h1>
-            <p>Input customer subscription and billing details to evaluate attrition probability.</p>
+    <div class="dashboard-card">
+        <div class="card-header">
+            <span class="badge">Predictive ML Model</span>
+            <h1>Telecom Churn Prediction</h1>
+            <p>Evaluate retention probability and identify customer churn risk</p>
         </div>
 
-        <form action="/predict" method="POST" class="form-grid">
-            <!-- Continuous Inputs -->
-            <div class="form-group">
-                <label for="tenure">Tenure (Months)</label>
-                <input type="number" id="tenure" name="tenure" placeholder="e.g., 24" min="0" step="1" required>
-            </div>
+        <div class="card-body">
+            <form action="/predict" method="POST" class="form-grid">
+                <div class="form-group">
+                    <label for="tenure">Tenure (Months)</label>
+                    <input type="number" id="tenure" name="tenure" placeholder="e.g., 24" min="0" step="1" required>
+                </div>
 
-            <div class="form-group">
-                <label for="total_charges">Total Charges ($)</label>
-                <input type="number" id="total_charges" name="total_charges" placeholder="e.g., 1850.50" min="0" step="0.01" required>
-            </div>
+                <div class="form-group">
+                    <label for="total_charges">Total Charges (₹)</label>
+                    <input type="number" id="total_charges" name="total_charges" placeholder="e.g., 1850.50" min="0" step="0.01" required>
+                </div>
 
-            <!-- Categorical / Binary Inputs -->
-            <div class="form-group">
-                <label for="paperless_billing">Paperless Billing</label>
-                <select id="paperless_billing" name="paperless_billing" required>
-                    <option value="1">Yes (Active)</option>
-                    <option value="0">No (Paper Invoices)</option>
-                </select>
-            </div>
+                <div class="form-group">
+                    <label for="paperless_billing">Paperless Billing</label>
+                    <select id="paperless_billing" name="paperless_billing" required>
+                        <option value="1">Yes (Electronic Billing)</option>
+                        <option value="0">No (Paper Invoices)</option>
+                    </select>
+                </div>
 
-            <div class="form-group">
-                <label for="two_year_contract">Contract Term</label>
-                <select id="two_year_contract" name="two_year_contract" required>
-                    <option value="0">Month-to-Month / 1 Year</option>
-                    <option value="1">Two-Year Contract</option>
-                </select>
-            </div>
+                <div class="form-group">
+                    <label for="two_year_contract">Contract Duration</label>
+                    <select id="two_year_contract" name="two_year_contract" required>
+                        <option value="0">Month-to-month / 1-Year</option>
+                        <option value="1">2-Year Contract</option>
+                    </select>
+                </div>
 
-            <div class="form-group">
-                <label for="fiber_optic_internet_service">Fiber Optic Internet</label>
-                <select id="fiber_optic_internet_service" name="fiber_optic_internet_service" required>
-                    <option value="0">No / Other Service</option>
-                    <option value="1">Yes (Fiber Optic)</option>
-                </select>
-            </div>
+                <div class="form-group">
+                    <label for="fiber_optic_internet_service">Fiber Optic Internet</label>
+                    <select id="fiber_optic_internet_service" name="fiber_optic_internet_service" required>
+                        <option value="0">No</option>
+                        <option value="1">Yes (Fiber Optic)</option>
+                    </select>
+                </div>
 
-            <div class="form-group">
-                <label for="no_internet_service">No Internet Service</label>
-                <select id="no_internet_service" name="no_internet_service" required>
-                    <option value="0">Has Internet (DSL/Fiber)</option>
-                    <option value="1">No Internet Service</option>
-                </select>
-            </div>
+                <div class="form-group">
+                    <label for="no_internet_service">Internet Service Status</label>
+                    <select id="no_internet_service" name="no_internet_service" required>
+                        <option value="0">Active Internet (DSL/Fiber)</option>
+                        <option value="1">No Internet Service</option>
+                    </select>
+                </div>
 
-            <div class="form-group full-width">
-                <label for="electronic_check_payment_method">Payment Method</label>
-                <select id="electronic_check_payment_method" name="electronic_check_payment_method" required>
-                    <option value="0">Credit Card / Bank Transfer / Mailed Check</option>
-                    <option value="1">Electronic Check</option>
-                </select>
-            </div>
+                <div class="form-group full-width">
+                    <label for="electronic_check_payment_method">Payment Method</label>
+                    <select id="electronic_check_payment_method" name="electronic_check_payment_method" required>
+                        <option value="0">Bank Transfer / Credit Card / Mailed Check</option>
+                        <option value="1">Electronic Check</option>
+                    </select>
+                </div>
 
-            <button type="submit" class="btn-submit">Generate Churn Prediction</button>
-        </form>
+                <button type="submit" class="btn-submit">Run Churn Assessment</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>
